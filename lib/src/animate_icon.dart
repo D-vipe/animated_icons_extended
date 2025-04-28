@@ -57,8 +57,7 @@ class AnimateIcon extends StatefulWidget {
 }
 
 /// State class of the [AnimateIcon]
-class _AnimateIconState extends State<AnimateIcon>
-    with TickerProviderStateMixin {
+class _AnimateIconState extends State<AnimateIcon> with TickerProviderStateMixin {
   /// Used to control the behaviour of the animation
   late final AnimationController _animationController;
 
@@ -108,7 +107,7 @@ class _AnimateIconState extends State<AnimateIcon>
               iconTypeAction();
             }
           },
-          animate: widget.iconType == IconType.animatedOnTap,
+          // animate: widget.iconType == IconType.animatedOnTap,
           height: widget.height,
           width: widget.width,
           addRepaintBoundary: true,
@@ -125,31 +124,25 @@ class _AnimateIconState extends State<AnimateIcon>
   void iconTypeAction() {
     switch (widget.iconType) {
       case IconType.animatedOnHover:
-        _animationController
-            .forward()
-            .then((value) => _animationController.reset());
+        _animationController.forward().then((value) => _animationController.reset());
         break;
 
       case IconType.onlyIcon:
         break;
 
       case IconType.animatedOnTap:
-        _animationController
-            .forward()
-            .then((value) => _animationController.reset());
+        _animationController.forward().then((value) => _animationController.reset());
         break;
 
       case IconType.continueAnimation:
-        _animationController
-            .forward()
-            .then((value) => _animationController.repeat());
+        _animationController.forward().then((value) => _animationController.repeat());
 
         break;
       case IconType.toggleIcon:
-        if (_animationController.isCompleted) {
-          _animationController.reverse();
+        if (_animationController.value == .5) {
+          _animationController.animateTo(1);
         } else {
-          _animationController.forward();
+          _animationController.animateTo(.5);
         }
 
         break;
